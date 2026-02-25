@@ -11,7 +11,7 @@ import com.hanitacm.stackoverflowusers.ui.model.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun UserListScreen(modifier: Modifier = Modifier) {
+internal fun UserListScreen(viewModel: UserListViewModel, modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
         topBar = {
