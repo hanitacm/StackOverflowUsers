@@ -22,10 +22,10 @@ internal fun UserListScreen(viewModel: UserListViewModel, modifier: Modifier = M
     ) { paddingValues ->
         UserList(
             users = listOf<User>(
-                User("Hanita", 10),
-                User("Hanita2", 10),
-                User("Hanita3", 10),
-                User("Hanita4", 10),
+                User(id = 1, "Hanita", 10, profileImage = ""),
+                User(id = 2, "Hanita2", 10, profileImage = ""),
+                User(id = 3, "Hanita3", 10, profileImage = ""),
+                User(id = 4, "Hanita4", 10, profileImage = "")
             ),
             modifier = Modifier.padding(paddingValues),
         )
