@@ -27,7 +27,6 @@ internal fun UserListScreen(viewModel: UserListViewModel) {
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        modifier = Modifier.padding(16.dp),
         topBar = {
             TopAppBar(
                 title = { Text(text = "Top Stack Overflow Users") },
