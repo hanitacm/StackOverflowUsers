@@ -1,7 +1,7 @@
 package com.hanitacm.stackoverflowusers.data.model
 
 import com.hanitacm.stackoverflowusers.data.model.dto.GetUsersResponse
-import com.hanitacm.stackoverflowusers.ui.model.User
+import com.hanitacm.stackoverflowusers.ui.model.domain.User
 
 internal fun GetUsersResponse.asDomainModel(): List<User> = this.items.map { dto ->
     User(

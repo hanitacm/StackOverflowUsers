@@ -1,4 +1,4 @@
-package com.hanitacm.stackoverflowusers.ui.model
+package com.hanitacm.stackoverflowusers.ui.model.domain
 
 data class User(
     val id: Int,

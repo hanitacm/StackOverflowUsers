@@ -20,11 +20,12 @@ import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hanitacm.stackoverflowusers.ui.model.User
+import com.hanitacm.stackoverflowusers.ui.model.domain.User
+import com.hanitacm.stackoverflowusers.ui.model.ui.UserUi
 import com.hanitacm.stackoverflowusers.ui.theme.StackOverflowUsersTheme
 
 @Composable
-internal fun UserList(users: List<User>, modifier: Modifier = Modifier) {
+internal fun UserList(users: List<UserUi>, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -42,7 +43,7 @@ internal fun UserList(users: List<User>, modifier: Modifier = Modifier) {
 @Composable
 private fun UserRow(
     name: String,
-    reputation: Int,
+    reputation: String,
     thumbnail: String,
     modifier: Modifier = Modifier
 ) {
@@ -79,10 +80,10 @@ fun UserListPreview() {
     StackOverflowUsersTheme {
         UserList(
             listOf(
-                User(id = 1, "Hanita", 10, profileImage = ""),
-                User(id = 2, "Hanita2", 10, profileImage = ""),
-                User(id = 3, "Hanita3", 10, profileImage = ""),
-                User(id = 4, "Hanita4", 10, profileImage = "")
+                UserUi(id = 1, "Hanita", "10", profileImage = ""),
+                UserUi(id = 2, "Hanita2", "104444", profileImage = ""),
+                UserUi(id = 3, "Hanita3", "1032434", profileImage = ""),
+                UserUi(id = 4, "Hanita4", "10244", profileImage = "")
             )
         )
     }

@@ -1,7 +1,7 @@
 package com.hanitacm.stackoverflowusers.data
 
 import android.net.http.HttpException
-import com.hanitacm.stackoverflowusers.ui.model.User
+import com.hanitacm.stackoverflowusers.ui.model.domain.User
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertThrows
