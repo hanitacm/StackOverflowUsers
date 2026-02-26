@@ -1,6 +1,9 @@
 package com.hanitacm.stackoverflowusers.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -11,9 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hanitacm.stackoverflowusers.ui.composables.ErrorMessage
 import com.hanitacm.stackoverflowusers.ui.composables.ProgressBar
 import com.hanitacm.stackoverflowusers.ui.composables.UserList
 import kotlinx.coroutines.CoroutineScope
@@ -36,19 +41,15 @@ internal fun UserListScreen(viewModel: UserListViewModel) {
             SnackbarHost(hostState = snackbarHostState)
         },
     ) { paddingValues ->
-        when(uiState){
+        when (uiState) {
             is UserListUiState.Loading -> ProgressBar(modifier = Modifier.padding(paddingValues))
             is UserListUiState.Success -> UserList(
                 users = (uiState as UserListUiState.Success).users,
                 modifier = Modifier.padding(paddingValues),
             )
-            is UserListUiState.Error -> (uiState as UserListUiState.Error).message.let {
-                coroutineScope.launch {
-                    snackbarHostState.showSnackbar(
-                        message = it,
-                    )
-                }
-            }
+
+            is UserListUiState.Error -> ErrorMessage("Ooops! Something went wrong")
+
 
         }
     }
