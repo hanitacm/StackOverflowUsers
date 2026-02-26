@@ -2,7 +2,7 @@ package com.hanitacm.stackoverflowusers
 
 import android.app.Application
 import android.content.Context
-import com.hanitacm.stackoverflowusers.UsersModule.UsersModule
+import com.hanitacm.stackoverflowusers.UsersModule
 
 class StackOverflowUsersApp : Application() {
     private lateinit var usersModule: UsersModule
