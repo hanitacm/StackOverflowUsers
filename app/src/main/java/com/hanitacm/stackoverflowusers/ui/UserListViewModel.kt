@@ -1,23 +1,27 @@
 package com.hanitacm.stackoverflowusers.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanitacm.stackoverflowusers.data.UsersRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class UserListViewModel(private val repository: UsersRepository) : ViewModel() {
+    private val _viewState =
+        MutableStateFlow<UserListUiState>(UserListUiState.Loading)
+    val viewState: StateFlow<UserListUiState>
+        get() = _viewState
+
     init {
         viewModelScope.launch {
-            try {
-                val u = repository.getUserList()
-
-            } catch (e: Exception) {
-                Log.e("USERS", e.message.orEmpty())
-            }
+            runCatching { repository.getUserList() }
+                .onSuccess {_viewState.value = UserListUiState.Success(it) }
+                .onFailure { _viewState.value = UserListUiState.Error(it.message ?: "Error")}
         }
     }
 }
+
 
 
 
