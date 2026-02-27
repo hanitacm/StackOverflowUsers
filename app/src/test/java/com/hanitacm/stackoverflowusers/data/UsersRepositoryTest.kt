@@ -1,18 +1,22 @@
 package com.hanitacm.stackoverflowusers.data
 
 import android.net.http.HttpException
+import com.hanitacm.stackoverflowusers.ui.FakeFolloweeDao
 import com.hanitacm.stackoverflowusers.ui.model.domain.User
-import junit.framework.TestCase.assertEquals
+
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class UsersRepositoryTest {
     @Test
-    fun `when getUserList is called, it should return a list of users from the data source`() =
+    fun `users should return a list of users from the data source`() =
         runTest {
             val usersDataSource = UsersDataSourceSuccessfulResponse()
-            val usersRepository = UsersRepositoryImpl(usersDataSource)
+            val usersRepository = UsersRepositoryImpl(usersDataSource, FakeFolloweeDao())
             val expectedUsers = listOf(
                 User(
                     id = 0,
@@ -33,22 +37,49 @@ class UsersRepositoryTest {
                 )
             )
 
-            val result = usersRepository.getUserList()
-
-
-            assertEquals(expectedUsers, result)
-
+            assertEquals(expectedUsers, usersRepository.users.first())
         }
 
     @Test
-    fun `when data source throws an exception usersRepository should throw it`() {
+    fun `when users throws an exception usersRepository should throw it`() {
         val usersDataSource = UsersDataSourceErrorResponse()
-        val usersRepository = UsersRepositoryImpl(usersDataSource)
+        val usersRepository = UsersRepositoryImpl(usersDataSource, FakeFolloweeDao())
 
         assertThrows(HttpException::class.java) {
-            runTest { usersRepository.getUserList() }
+            runTest { usersRepository.users.first() }
         }
     }
+
+    @Test
+    fun `followees should return userId list of followee users`() = runTest {
+        val repository = UsersRepositoryImpl(UsersDataSourceSuccessfulResponse(), FakeFolloweeDao())
+        repository.followUser(123)
+        repository.followUser(321)
+
+        val expectedFollowees = listOf(123, 321)
+        val followees = repository.followees.first()
+
+        assertEquals(expectedFollowees, followees)
+    }
+
+    @Test
+    fun `followUser should add userId to followees`() = runTest {
+        val repository = UsersRepositoryImpl(UsersDataSourceSuccessfulResponse(), FakeFolloweeDao())
+
+        repository.followUser(123)
+
+        val followees = repository.followees.first()
+        assertEquals(listOf(123), followees)
+    }
+
+    @Test
+    fun `unfollowUser should remove previously followed user`() = runTest {
+        val repository = UsersRepositoryImpl(UsersDataSourceSuccessfulResponse(), FakeFolloweeDao())
+        repository.followUser(123)
+
+        repository.unfollowUser(123)
+
+        val followees = repository.followees.first()
+        assertTrue(followees.isEmpty())
+    }
 }
-
-

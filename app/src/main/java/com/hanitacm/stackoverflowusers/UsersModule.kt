@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.hanitacm.stackoverflowusers.data.StackOverflowService
 import com.hanitacm.stackoverflowusers.data.UsersNetworkApi
 import com.hanitacm.stackoverflowusers.data.UsersRepositoryImpl
+import com.hanitacm.stackoverflowusers.data.db.FolloweesDatabase
 import com.hanitacm.stackoverflowusers.ui.UserListViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -25,7 +26,11 @@ class UsersModule(context: Context) {
     }
 
     private val usersRepository by lazy {
-        UsersRepositoryImpl(usersNetworkDataSource)
+        UsersRepositoryImpl(usersNetworkDataSource, followeeLocalDatasource)
+    }
+
+    private val followeeLocalDatasource by lazy{
+        FolloweesDatabase.getDb(context).followeeDao
     }
 
     private val usersNetworkDataSource by lazy {
