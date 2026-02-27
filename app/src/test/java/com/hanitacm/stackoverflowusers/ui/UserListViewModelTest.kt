@@ -23,6 +23,7 @@ class UserListViewModelTest {
                 name = "User Name 0",
                 reputation = "1,000",
                 profileImage = "http://example.com/image/0.jpg",
+                isFollowee = false
 
                 ),
             UserUi(
@@ -30,6 +31,7 @@ class UserListViewModelTest {
                 name = "User Name 1",
                 reputation = "1,100",
                 profileImage = "http://example.com/image/1.jpg",
+                isFollowee = false
 
                 ),
             UserUi(
@@ -37,6 +39,7 @@ class UserListViewModelTest {
                 name = "User Name 2",
                 reputation = "1,200",
                 profileImage = "http://example.com/image/2.jpg",
+                isFollowee = false
             )
         )
         val viewModel = UserListViewModel(UsersRepositoryFake())

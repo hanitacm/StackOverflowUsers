@@ -10,7 +10,8 @@ internal fun List<User>.asUiModel(): List<UserUi> {
             id = it.id,
             name = it.name,
             profileImage = it.profileImage,
-            reputation = String.format(Locale.getDefault(), "%,d", it.reputation)
+            reputation = String.format(Locale.getDefault(), "%,d", it.reputation),
+            isFollowee = false,
         )
     }
 }

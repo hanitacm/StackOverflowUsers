@@ -21,6 +21,14 @@ class UserListViewModel(private val repository: UsersRepository) : ViewModel() {
                 .onFailure { _viewState.value = UserListUiState.Error }
         }
     }
+
+    fun followUser() {
+        TODO("Not yet implemented")
+    }
+
+    fun unFollowUser() {
+        TODO("Not yet implemented")
+    }
 }
 
 

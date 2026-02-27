@@ -5,4 +5,5 @@ data class UserUi(
     val name: String,
     val reputation: String,
     val profileImage: String,
+    val isFollowee: Boolean,
 )
