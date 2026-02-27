@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.hanitacm.stackoverflowusers.data.StackOverflowService
 import com.hanitacm.stackoverflowusers.data.UsersNetworkApi
-import com.hanitacm.stackoverflowusers.data.UsersRepository
+import com.hanitacm.stackoverflowusers.data.UsersRepositoryImpl
 import com.hanitacm.stackoverflowusers.ui.UserListViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -25,7 +25,7 @@ class UsersModule(context: Context) {
     }
 
     private val usersRepository by lazy {
-        UsersRepository(usersNetworkDataSource)
+        UsersRepositoryImpl(usersNetworkDataSource)
     }
 
     private val usersNetworkDataSource by lazy {

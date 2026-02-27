@@ -12,7 +12,7 @@ class UsersRepositoryTest {
     fun `when getUserList is called, it should return a list of users from the data source`() =
         runTest {
             val usersDataSource = UsersDataSourceSuccessfulResponse()
-            val usersRepository = UsersRepository(usersDataSource)
+            val usersRepository = UsersRepositoryImpl(usersDataSource)
             val expectedUsers = listOf(
                 User(
                     id = 0,
@@ -43,7 +43,7 @@ class UsersRepositoryTest {
     @Test
     fun `when data source throws an exception usersRepository should throw it`() {
         val usersDataSource = UsersDataSourceErrorResponse()
-        val usersRepository = UsersRepository(usersDataSource)
+        val usersRepository = UsersRepositoryImpl(usersDataSource)
 
         assertThrows(HttpException::class.java) {
             runTest { usersRepository.getUserList() }
