@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hanitacm.stackoverflowusers.R
 import com.hanitacm.stackoverflowusers.ui.composables.ErrorMessage
 import com.hanitacm.stackoverflowusers.ui.composables.ProgressBar
 import com.hanitacm.stackoverflowusers.ui.composables.UserList
@@ -46,7 +48,7 @@ internal fun UserListScreen(viewModel: UserListViewModel) {
                 modifier = Modifier.padding(paddingValues),
             )
 
-            is UserListUiState.Error -> ErrorMessage("Ooops! Something went wrong")
+            is UserListUiState.Error -> ErrorMessage(stringResource(id = R.string.error_message_text))
 
 
         }
