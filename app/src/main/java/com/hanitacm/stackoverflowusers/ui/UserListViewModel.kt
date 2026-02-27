@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class UserListViewModel(repository: UsersRepository) : ViewModel() {
+class UserListViewModel(private val repository: UsersRepository) : ViewModel() {
     val viewState: StateFlow<UserListUiState> =
         combine(repository.users, repository.followees) { users, followees ->
             val userUiList = users.map { user ->
@@ -19,18 +19,18 @@ class UserListViewModel(repository: UsersRepository) : ViewModel() {
             }
             UserListUiState.Success(userUiList)
         }.catch<UserListUiState> { emit(UserListUiState.Error) }
-
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UserListUiState.Loading)
 
-
-    fun followUser() {
+    fun followUser(userId: Int) {
         viewModelScope.launch {
-
+            repository.followUser(userId)
         }
     }
 
-    fun unFollowUser() {
-        TODO("Not yet implemented")
+    fun unFollowUser(userId: Int) {
+        viewModelScope.launch {
+            repository.unfollowUser(userId)
+        }
     }
 }
 

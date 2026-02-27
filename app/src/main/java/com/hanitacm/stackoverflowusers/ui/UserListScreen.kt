@@ -37,11 +37,11 @@ internal fun UserListScreen(viewModel: UserListViewModel) {
             is UserListUiState.Loading -> ProgressBar(modifier = Modifier.padding(paddingValues))
             is UserListUiState.Success -> UserList(
                 users = (uiState as UserListUiState.Success).users,
-                onFollowClick={
-                    viewModel.followUser()
+                onFollowClick={ userId->
+                    viewModel.followUser(userId)
                 },
-                onUnfollowClick={
-                    viewModel.unFollowUser()
+                onUnfollowClick={userId->
+                    viewModel.unFollowUser(userId)
                 },
                 modifier = Modifier.padding(paddingValues),
             )
