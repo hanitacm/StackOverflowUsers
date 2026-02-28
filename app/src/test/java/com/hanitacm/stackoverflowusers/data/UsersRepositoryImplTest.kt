@@ -11,7 +11,7 @@ import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class UsersRepositoryTest {
+class UsersRepositoryImplTest {
     @Test
     fun `users should return a list of users from the data source`() =
         runTest {
