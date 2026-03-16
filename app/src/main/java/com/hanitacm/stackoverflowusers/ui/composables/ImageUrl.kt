@@ -1,5 +1,6 @@
 package com.hanitacm.stackoverflowusers.ui.composables
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
@@ -8,19 +9,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import com.hanitacm.stackoverflowusers.ImageLoader
 
 @Composable
 internal fun ImageUrl(url: String, modifier: Modifier = Modifier) {
-    val imageBitmap by produceState<ImageBitmap?>(initialValue = null, url) {
+    val imageBitmap by produceState<Bitmap?>(initialValue = null, url) {
         value = ImageLoader.getImageBitmap(url)
     }
 
     Box(modifier = modifier) {
         if (imageBitmap != null) {
             Image(
-                bitmap = imageBitmap!!,
+                bitmap = (imageBitmap as Bitmap).asImageBitmap(),
                 contentDescription = "Image from URL",
             )
         } else {
