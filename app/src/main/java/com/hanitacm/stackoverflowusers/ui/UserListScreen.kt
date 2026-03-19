@@ -24,7 +24,7 @@ import com.hanitacm.stackoverflowusers.ui.composables.UserList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun UserListScreen(viewModel: UserListViewModel) {
+internal fun UserListScreen(viewModel: UserListViewModel, onNavigate: (Int) -> Unit) {
     val uiState: UserListUiState by viewModel.viewState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val pullRefreshState = rememberPullToRefreshState()
@@ -62,6 +62,7 @@ internal fun UserListScreen(viewModel: UserListViewModel) {
                         onUnfollowClick = { userId ->
                             viewModel.unFollowUser(userId)
                         },
+                        onClickUser={ userId -> onNavigate(userId)}
                     )}
                 }
             }

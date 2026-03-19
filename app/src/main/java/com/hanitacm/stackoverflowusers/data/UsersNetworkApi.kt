@@ -6,4 +6,9 @@ internal class UsersNetworkApi(private val stackOverflowService: StackOverflowSe
     override suspend fun getUsers(): GetUsersResponse {
         return stackOverflowService.getUsers()
     }
+
+    override suspend fun getUserDetail(userId:String): GetUsersResponse {
+        return stackOverflowService.getUserDetail(userId)
+
+    }
 }

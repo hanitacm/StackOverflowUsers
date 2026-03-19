@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 
 interface UsersRepository {
     val users: Flow<List<User>>
+    fun getUserDetail(userId: Int): Flow<User>
     val followees: Flow<List<Int>>
     suspend fun followUser(userId: Int)
     suspend fun unfollowUser(userId: Int)
@@ -23,6 +24,11 @@ class UsersRepositoryImpl(
     private val followeeDao: FolloweeDao
 ) : UsersRepository {
     override val users = flow { emit(usersNetworkDataSource.getUsers().asDomainModel()) }
+
+    override fun getUserDetail(userId: Int): Flow<User> = flow {
+        emit(usersNetworkDataSource.getUserDetail(userId.toString()).asDomainModel().first())
+    }
+
     override val followees = followeeDao.getFollowees().distinctUntilChanged()
         .map { it.map { followee -> followee.userId } }
 
