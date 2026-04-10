@@ -33,6 +33,11 @@ internal class UsersRepositoryFake() : UsersRepository {
                 )
             )
         }
+
+    override fun getUserDetail(userId: Int): Flow<User> {
+        TODO("Not yet implemented")
+    }
+
     override val followees = flow { emit(listOf(0, 1)) }
 
     override suspend fun followUser(userId: Int) {
@@ -46,6 +51,9 @@ internal class UsersRepositoryFake() : UsersRepository {
 
 internal class UsersRepositoryErrorResponse : UsersRepository {
     override val users: Flow<List<User>> = flow { throw HttpException("network error", null) }
+    override fun getUserDetail(userId: Int): Flow<User> {
+        TODO("Not yet implemented")
+    }
 
     override val followees = flow { emit(listOf(0, 1)) }
 

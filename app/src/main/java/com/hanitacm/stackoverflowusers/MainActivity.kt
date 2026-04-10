@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hanitacm.stackoverflowusers.ui.Screen
 import com.hanitacm.stackoverflowusers.ui.UserDetailScreen
 import com.hanitacm.stackoverflowusers.ui.UserDetailViewModel
@@ -30,10 +31,11 @@ class MainActivity : ComponentActivity() {
             StackOverflowUsersTheme {
                 when (val currentScreen = screen) {
                     is Screen.UserDetails -> {
-                        val detailViewModel: UserDetailViewModel by viewModels {
-                            StackOverflowUsersApp.from(applicationContext)
+                        val detailViewModel: UserDetailViewModel = viewModel(
+                            key = "user_detail_${currentScreen.userId}",
+                            factory = StackOverflowUsersApp.from(applicationContext)
                                 .injectDetail(currentScreen.userId)
-                        }
+                        )
                         UserDetailScreen(viewModel = detailViewModel)
                     }
 
@@ -42,12 +44,8 @@ class MainActivity : ComponentActivity() {
                         onNavigate = { userId: Int -> screen = Screen.UserDetails(userId) })
                 }
             }
-            BackHandler {
-                if (screen is Screen.UserDetails) {
-                    screen = Screen.UserList
-                }else{
-                    finish()
-                }
+            BackHandler(enabled = screen is Screen.UserDetails) {
+                screen = Screen.UserList
             }
         }
     }
