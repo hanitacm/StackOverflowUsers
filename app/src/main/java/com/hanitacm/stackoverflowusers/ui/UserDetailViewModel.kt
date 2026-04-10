@@ -1,4 +1,4 @@
-package com.hanitacm.stackoverflowusers.ui;
+package com.hanitacm.stackoverflowusers.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
