@@ -41,7 +41,7 @@ internal fun UserListScreen(viewModel: UserListViewModel, onNavigate: (Int) -> U
         },
     ) { paddingValues ->
         when (uiState) {
-            is UserListUiState.Loading,   //-> ProgressBar(modifier = Modifier.padding(paddingValues))
+            is UserListUiState.Loading,
             is UserListUiState.Success -> Box(
                 modifier = Modifier
                     .fillMaxSize()
