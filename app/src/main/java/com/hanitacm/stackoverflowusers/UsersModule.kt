@@ -8,6 +8,7 @@ import com.hanitacm.stackoverflowusers.data.StackOverflowService
 import com.hanitacm.stackoverflowusers.data.UsersNetworkApi
 import com.hanitacm.stackoverflowusers.data.UsersRepositoryImpl
 import com.hanitacm.stackoverflowusers.data.db.FolloweesDatabase
+import com.hanitacm.stackoverflowusers.ui.UserDetailViewModel
 import com.hanitacm.stackoverflowusers.ui.UserListViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -22,6 +23,16 @@ class UsersModule(context: Context) {
             extras: CreationExtras
         ): T {
             return UserListViewModel(usersRepository) as T
+        }
+    }
+
+    fun injectDetail(userId: Int) = object : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(
+            modelClass: Class<T>,
+            extras: CreationExtras
+        ): T {
+            return UserDetailViewModel(userId, usersRepository) as T
         }
     }
 

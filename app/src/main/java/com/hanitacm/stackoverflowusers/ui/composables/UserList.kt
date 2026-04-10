@@ -1,5 +1,6 @@
 package com.hanitacm.stackoverflowusers.ui.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,7 +29,8 @@ internal fun UserList(
     users: List<UserUi>,
     modifier: Modifier = Modifier,
     onFollowClick: (Int) -> Unit = {},
-    onUnfollowClick: (Int) -> Unit = {}
+    onUnfollowClick: (Int) -> Unit = {},
+    onClickUser: (Int) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier
@@ -46,7 +48,8 @@ internal fun UserList(
                     } else {
                         onFollowClick(user.id)
                     }
-                }
+                },
+                onClickUser = { onClickUser(user.id) }
 
             )
         }
@@ -60,12 +63,20 @@ private fun UserRow(
     thumbnail: String,
     isFollowee: Boolean,
     modifier: Modifier = Modifier,
-    onButtonClick: () -> Unit = {}
+    onButtonClick: () -> Unit = {},
+    onClickUser: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable(
+                enabled = true,
+                onClickLabel = null,
+                role = null,
+                interactionSource = null,
+                onClick = onClickUser
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -84,7 +95,7 @@ private fun UserRow(
 
         }
         if (isFollowee) {
-           FollowingButton(onClick = onButtonClick)
+            FollowingButton(onClick = onButtonClick)
         } else {
             FollowButton(onClick = onButtonClick)
         }
@@ -103,8 +114,6 @@ fun UserListPreview() {
                 UserUi(id = 3, "Hanita3", "1032434", profileImage = "", isFollowee = true),
                 UserUi(id = 4, "Hanita4", "10244", profileImage = "", isFollowee = false)
             ),
-            onFollowClick = {},
-            onUnfollowClick = {}
         )
     }
 }

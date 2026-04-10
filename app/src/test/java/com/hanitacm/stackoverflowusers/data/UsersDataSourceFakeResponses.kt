@@ -37,9 +37,16 @@ internal class UsersDataSourceSuccessfulResponse : UsersNetworkDataSource {
         )
     }
 
+    override suspend fun getUserDetail(userId: String): GetUsersResponse {
+        TODO("Not yet implemented")
+    }
+
 }
 
 internal class UsersDataSourceErrorResponse : UsersNetworkDataSource {
     override suspend fun getUsers(): GetUsersResponse = throw HttpException("network error", null)
+    override suspend fun getUserDetail(userId: String): GetUsersResponse {
+        TODO("Not yet implemented")
+    }
 
 }
